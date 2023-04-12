@@ -13,7 +13,7 @@ with open(os.path.join(HERE, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 product = "dyna"
-library = "core"
+library = ""
 package_info = ["ansys", "api", product, library, "v0"]
 with open(os.path.join(HERE, "src", "ansys", "api", product, library, "VERSION"), encoding="utf-8") as f:
     version = f.read().strip()
