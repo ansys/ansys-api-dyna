@@ -257,6 +257,14 @@ message ControlImplicitSolutionReply {
 	int32 answer = 1;
 }
 
+message ControlImplicitConsistentMassRequest {
+    int32 iflag = 1;
+}
+
+message ControlImplicitConsistentMassReply {
+	int32 answer = 1;
+}
+
 message ControlSPHRequest {
     int32 ncbs = 1;
 	int32 boxid = 2;
@@ -686,8 +694,9 @@ message DefineCurveReply {
 }
 
 message DefineCurveFunctionRequest {
-    int32 lcid = 1;
-	string function = 2;
+	string title = 1;
+    int32 lcid = 2;
+	string function = 3;
 }
 
 message DefineCurveFunctionReply {
@@ -935,6 +944,7 @@ message MatRigidDiscreteReply {
 	int32 mid = 1;
 }
 
+//MAT_001
 message MatElasticRequest {
 	int32 mid = 1;
 	float ro = 2;
@@ -943,6 +953,21 @@ message MatElasticRequest {
 }
 
 message MatElasticReply {
+	int32 mid = 1;
+}
+
+//MAT_003
+message MatPlasticKinematicRequest {
+	int32 mid = 1;
+	float ro = 2;
+	float e = 3;
+	float pr = 4;
+	float sigy = 5;
+	float etan = 6;
+	float beta = 7;
+}
+
+message MatPlasticKinematicReply {
 	int32 mid = 1;
 }
 
@@ -1001,6 +1026,20 @@ message MatModifiedPiecewiseLinearPlasticityRequest {
 }
 
 message MatModifiedPiecewiseLinearPlasticityReply {
+	int32 mid = 1;
+}
+
+//MAT_063
+message MatCrushableFoamRequest {
+	int32 mid = 1;
+	float ro = 2;
+	float e = 3;
+	float pr = 4;
+	int32 lcid = 5;
+	float tsl = 6;
+}
+
+message MatCrushableFoamReply {
 	int32 mid = 1;
 }
 
@@ -1129,6 +1168,7 @@ message MatSPHIncompressibleStructureReply {
 }
 
 //MATERIAL THERMAL
+//MAT_T01
 message MatThermalIsotropicRequest {
 	int32 mid = 1;
 	float tro = 2;
@@ -1140,6 +1180,19 @@ message MatThermalIsotropicRequest {
 }
 
 message MatThermalIsotropicReply {
+	int32 mid = 1;
+}
+
+//MAT_T02
+message MatThermalOrthotropicRequest {
+	int32 mid = 1;
+	float hc = 2;
+	float k1 = 3;
+	float k2 = 4;
+	float k3 = 5;
+}
+
+message MatThermalOrthotropicReply {
 	int32 mid = 1;
 }
 
@@ -1759,6 +1812,17 @@ message EMMat004Reply {
 	int32 answer = 1;
 }
 
+message EMMat006Request {
+    int32 mid = 1;
+	int32 mtype = 2;
+	float sigp = 3;
+	float sign = 4;
+}
+
+message EMMat006Reply {
+	int32 mid = 1;
+}
+
 message EMIsopotentialRequest {
     int32 isoid = 1;
 	int32 settype = 2;
@@ -1784,6 +1848,27 @@ message EMIsopotentialConnectRequest {
 
 message EMIsopotentialConnectReply {
 	int32 id = 1;
+}
+
+message EMRandlesBatmacRequest {
+    int32 rdlid = 1;
+	int32 rdltype = 2;
+	int32 rdlarea = 3;
+	int32 psid = 4;
+	//card2
+	float q = 5;
+	float cq = 6;
+	float socinit = 7;
+	//card3
+	repeated float chargedirparam = 8;
+	//card4
+	float temp = 9;
+    int32 frther = 10;
+	int32 r0toth = 11;
+}
+
+message EMRandlesBatmacReply {
+	int32 rdlid = 1;
 }
 
 message EMIsopotentialRogoRequest {
@@ -1953,6 +2038,7 @@ service kwC2S {
 	rpc CreateControlImplicitDynamic(ControlImplicitDynamicRequest) returns (ControlImplicitDynamicReply) {}
 	rpc CreateControlImplicitEigenvalue(ControlImplicitEigenvalueRequest) returns (ControlImplicitEigenvalueReply) {}
 	rpc CreateControlImplicitSolution(ControlImplicitSolutionRequest) returns (ControlImplicitSolutionReply) {}
+	rpc CreateControlImplicitConsistentMass(ControlImplicitConsistentMassRequest) returns (ControlImplicitConsistentMassReply) {}
 	rpc CreateControlSPH(ControlSPHRequest) returns (ControlSPHReply) {}
 	
 	
@@ -1992,10 +2078,12 @@ service kwC2S {
 	rpc CreateMatRigid(MatRigidRequest) returns (MatRigidReply) {}
 	rpc CreateMatRigidDiscrete(MatRigidDiscreteRequest) returns (MatRigidDiscreteReply) {}
 	rpc CreateMatElastic(MatElasticRequest) returns (MatElasticReply) {}
+	rpc CreateMatPlasticKinematic(MatPlasticKinematicRequest) returns (MatPlasticKinematicReply) {}
 	rpc CreateMatElasticPlasticThermal(MatElasticPlasticThermalRequest) returns (MatElasticPlasticThermalReply) {}
 	rpc CreateMatSpotweld(MatSpotweldRequest) returns (MatSpotweldReply) {}
     rpc CreateMatPiecewiseLinearPlasticity(MatPiecewiseLinearPlasticityRequest) returns (MatPiecewiseLinearPlasticityReply) {}
 	rpc CreateMatModifiedPiecewiseLinearPlasticity(MatModifiedPiecewiseLinearPlasticityRequest) returns (MatModifiedPiecewiseLinearPlasticityReply) {}
+	rpc CreateMatCrushableFoam(MatCrushableFoamRequest) returns (MatCrushableFoamReply) {}
 	rpc CreateMatFabric(MatFabricRequest) returns (MatFabricReply) {}
 	rpc CreateMatSpringNonlinearElastic(MatSpringNonlinearElasticRequest) returns (MatSpringNonlinearElasticReply) {}
 	rpc CreateMatDamperViscous(MatDamperViscousRequest) returns (MatDamperViscousReply) {}
@@ -2008,7 +2096,8 @@ service kwC2S {
  	rpc CreateMatSPHIncompressibleFluid(MatSPHIncompressibleFluidRequest) returns (MatSPHIncompressibleFluidReply) {}
 	rpc CreateMatSPHIncompressibleStructure(MatSPHIncompressibleStructureRequest) returns (MatSPHIncompressibleStructureReply) {}
 	rpc CreateMatThermalIsotropic(MatThermalIsotropicRequest) returns (MatThermalIsotropicReply) {}
-	
+	rpc CreateMatThermalOrthotropic(MatThermalOrthotropicRequest) returns (MatThermalOrthotropicReply) {}
+
 	//---EOS
     rpc CreateEOSLinearPolynomial(EOSLinearPolynomialRequest) returns (EOSLinearPolynomialReply) {}
     rpc CreateEOSJWL(EOSJWLRequest) returns (EOSJWLReply) {}
@@ -2112,8 +2201,10 @@ service kwC2S {
 	rpc CreateEMMat001(EMMat001Request) returns (EMMat001Reply) {}
 	rpc CreateEMMat002(EMMat002Request) returns (EMMat002Reply) {}
 	rpc CreateEMMat004(EMMat004Request) returns (EMMat004Reply) {}
+	rpc CreateEMMat006(EMMat006Request) returns (EMMat006Reply) {}
 	rpc CreateEMIsopotential(EMIsopotentialRequest) returns (EMIsopotentialReply) {}
 	rpc CreateEMIsopotentialConnect(EMIsopotentialConnectRequest) returns (EMIsopotentialConnectReply) {}
+	rpc CreateEMRandlesBatmac(EMRandlesBatmacRequest) returns (EMRandlesBatmacReply) {}
 	rpc CreateEMIsopotentialRogo(EMIsopotentialRogoRequest) returns (EMIsopotentialRogoReply) {}
 	rpc CreateEMSolverBem(EMSolverBemRequest) returns (EMSolverBemReply) {}
 	rpc CreateEMSolverFem(EMSolverFemRequest) returns (EMSolverFemReply) {}
