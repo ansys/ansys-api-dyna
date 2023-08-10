@@ -726,6 +726,16 @@ message DefineFunctionReply {
 	int32 id = 1;
 }
 
+message DefineTable2DRequest {
+	string title = 1;
+	repeated float values = 2;
+	repeated int32 cids = 3;
+}
+
+message DefineTable2DReply {
+	int32 id = 1;
+}
+
 message DefineBoxRequest {
 	float xmin = 1;
 	float xmax = 2;
@@ -1827,6 +1837,7 @@ message EMIsopotentialRequest {
     int32 isoid = 1;
 	int32 settype = 2;
 	int32 setid = 3;
+	int32 rdltype = 4;
 }
 
 message EMIsopotentialReply {
@@ -2109,6 +2120,7 @@ service kwC2S {
 	rpc CreateDefineCurveFunction(DefineCurveFunctionRequest) returns (DefineCurveFunctionReply) {}
 	rpc CreateDefineVector(DefineVectorRequest) returns (DefineVectorReply) {}
 	rpc CreateDefineFunction(DefineFunctionRequest) returns (DefineFunctionReply) {}
+	rpc CreateDefineTable2D(DefineTable2DRequest) returns (DefineTable2DReply) {}
 	rpc CreateDefineBox(DefineBoxRequest) returns (DefineBoxReply) {}
 	rpc CreateDefineTransformation(DefineTransformationRequest) returns (DefineTransformationReply) {}
 	rpc CreateDefineDEMeshSurface(DefineDEMeshSurfaceRequest) returns (DefineDEMeshSurfaceReply) {}
