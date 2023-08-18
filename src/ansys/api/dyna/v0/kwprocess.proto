@@ -209,6 +209,15 @@ message ControlThermalTimestepReply {
 	int32 answer = 1;
 }
 
+message ControlThermalNonlinearRequest {
+    float tol = 1;
+	float dcp = 2;
+}
+
+message ControlThermalNonlinearReply {
+	int32 answer = 1;
+}
+
 message ControlImplicitGeneralRequest {
     int32 imflag = 1;
 	float dt0 = 2;
@@ -1870,16 +1879,25 @@ message EMRandlesBatmacRequest {
 	float q = 5;
 	float cq = 6;
 	float socinit = 7;
+	int32 soctou = 8;
 	//card3
-	repeated float chargedirparam = 8;
+	repeated float chargedirparam = 9;
 	//card4
-	float temp = 9;
-    int32 frther = 10;
-	int32 r0toth = 11;
+	float temp = 10;
+    int32 frther = 11;
+	int32 r0toth = 12;
 }
 
 message EMRandlesBatmacReply {
 	int32 rdlid = 1;
+}
+
+message EMRandlesShortRequest {
+    int32 function = 1;
+}
+
+message EMRandlesShortReply {
+	int32 answer = 1;
 }
 
 message EMIsopotentialRogoRequest {
@@ -2044,6 +2062,7 @@ service kwC2S {
 	rpc CreateControlSolution(ControlSolutionRequest) returns (ControlSolutionReply) {}
 	rpc CreateControlThermalSolver(ControlThermalSolverRequest) returns (ControlThermalSolverReply) {}
     rpc CreateControlThermalTimestep(ControlThermalTimestepRequest) returns (ControlThermalTimestepReply) {}
+    rpc CreateControlThermalNonlinear(ControlThermalNonlinearRequest) returns (ControlThermalNonlinearReply) {}
 	rpc CreateControlImplicitGeneral(ControlImplicitGeneralRequest) returns (ControlImplicitGeneralReply) {}
 	rpc CreateControlImplicitAuto(ControlImplicitAutoRequest) returns (ControlImplicitAutoReply) {}
 	rpc CreateControlImplicitDynamic(ControlImplicitDynamicRequest) returns (ControlImplicitDynamicReply) {}
@@ -2217,6 +2236,7 @@ service kwC2S {
 	rpc CreateEMIsopotential(EMIsopotentialRequest) returns (EMIsopotentialReply) {}
 	rpc CreateEMIsopotentialConnect(EMIsopotentialConnectRequest) returns (EMIsopotentialConnectReply) {}
 	rpc CreateEMRandlesBatmac(EMRandlesBatmacRequest) returns (EMRandlesBatmacReply) {}
+	rpc CreateEMRandlesShort(EMRandlesShortRequest) returns (EMRandlesShortReply) {}
 	rpc CreateEMIsopotentialRogo(EMIsopotentialRogoRequest) returns (EMIsopotentialRogoReply) {}
 	rpc CreateEMSolverBem(EMSolverBemRequest) returns (EMSolverBemReply) {}
 	rpc CreateEMSolverFem(EMSolverFemRequest) returns (EMSolverFemReply) {}
