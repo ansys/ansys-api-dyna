@@ -545,6 +545,22 @@ message BdyTempReply {
 	int32 answer = 1;
 }
 
+message BdyConvectionRequest {
+    int32 ssid = 1;
+	int32 pserod = 2;
+	repeated int32 nodes = 3;
+	int32 hlcid = 4;
+	float hmult = 5;
+	int32 tlcid = 6;
+	float tmult = 7;
+	int32 loc = 8;
+
+}
+
+message BdyConvectionReply {
+	int32 answer = 1;
+}
+
 //---CONSTRAINED
 message ConstrainedExtraNodesRequest {
     string option = 1;//NODE,SET
@@ -732,6 +748,17 @@ message DefineFunctionRequest {
 }
 
 message DefineFunctionReply {
+	int32 id = 1;
+}
+
+message DefineFunctionTabulatedRequest {
+	string heading = 1;
+	string function = 2;
+	repeated double abscissa = 3;
+	repeated double ordinate = 4;
+}
+
+message DefineFunctionTabulatedReply {
 	int32 id = 1;
 }
 
@@ -1900,6 +1927,16 @@ message EMRandlesShortReply {
 	int32 answer = 1;
 }
 
+message EMRandlesExothermicReactionRequest {
+    int32 areatype = 1;
+	int32 function = 2;
+}
+
+message EMRandlesExothermicReactionReply {
+	int32 answer = 1;
+}
+
+
 message EMIsopotentialRogoRequest {
     int32 isoid = 1;
 	int32 settype = 2;
@@ -2093,6 +2130,8 @@ service kwC2S {
 	rpc CreateBdyPrescribedMotion(BdyPrescribedMotionRequest) returns (BdyPrescribedMotionReply) {}
 	rpc CreateBdySpc(BdySpcRequest) returns (BdySpcReply) {}
 	rpc CreateBdyTemp(BdyTempRequest) returns (BdyTempReply) {}
+	rpc CreateBdyConvection(BdyConvectionRequest) returns (BdyConvectionReply) {}
+
 	//---CONSTRAINED
 	rpc CreateConstrainedJoint(ConstrainedJointRequest) returns (ConstrainedJointReply) {}
     rpc CreateConstrainedExtraNodes(ConstrainedExtraNodesRequest) returns (ConstrainedExtraNodesReply) {}
@@ -2139,6 +2178,7 @@ service kwC2S {
 	rpc CreateDefineCurveFunction(DefineCurveFunctionRequest) returns (DefineCurveFunctionReply) {}
 	rpc CreateDefineVector(DefineVectorRequest) returns (DefineVectorReply) {}
 	rpc CreateDefineFunction(DefineFunctionRequest) returns (DefineFunctionReply) {}
+	rpc CreateDefineFunctionTabulated(DefineFunctionTabulatedRequest) returns (DefineFunctionTabulatedReply) {}
 	rpc CreateDefineTable2D(DefineTable2DRequest) returns (DefineTable2DReply) {}
 	rpc CreateDefineBox(DefineBoxRequest) returns (DefineBoxReply) {}
 	rpc CreateDefineTransformation(DefineTransformationRequest) returns (DefineTransformationReply) {}
@@ -2237,6 +2277,7 @@ service kwC2S {
 	rpc CreateEMIsopotentialConnect(EMIsopotentialConnectRequest) returns (EMIsopotentialConnectReply) {}
 	rpc CreateEMRandlesBatmac(EMRandlesBatmacRequest) returns (EMRandlesBatmacReply) {}
 	rpc CreateEMRandlesShort(EMRandlesShortRequest) returns (EMRandlesShortReply) {}
+	rpc CreateEMRandlesExothermicReaction(EMRandlesExothermicReactionRequest) returns (EMRandlesExothermicReactionReply) {}
 	rpc CreateEMIsopotentialRogo(EMIsopotentialRogoRequest) returns (EMIsopotentialRogoReply) {}
 	rpc CreateEMSolverBem(EMSolverBemRequest) returns (EMSolverBemReply) {}
 	rpc CreateEMSolverFem(EMSolverFemRequest) returns (EMSolverFemReply) {}
