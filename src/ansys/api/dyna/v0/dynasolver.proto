@@ -23,6 +23,8 @@ service DynaSolverComm {
     rpc quit_server (QuitServer) returns (DynaSolverStatus) {}
     // set logging level for server
     rpc log_level (LogLevel) returns (DynaSolverStatus) {}
+    // start and run Syna locally
+    rpc start_solver_locally (DynaSolverStartLocal) returns (DynaSolverStatus) {}
 }
 
 // The request packet, and also the reply packet, for most
@@ -53,6 +55,14 @@ message DynaSolverFileData {
 message DynaSolverStart {
   bytes exename = 1;  
   int32 nproc = 2;
+}
+// Command to start DYNA executable locally on the given number of cores
+message DynaSolverStartLocal {
+  bytes exename = 1; 
+  bytes input = 2; 
+  int32 nproc = 3;
+  int32 memory = 4;
+  bytes prset = 5;
 }
 // File name to download, or optional filter text for list_files
 message DynaSolverFileRequest {
