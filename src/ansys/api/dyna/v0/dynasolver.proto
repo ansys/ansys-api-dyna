@@ -62,7 +62,7 @@ message DynaSolverStartLocal {
   bytes input = 2; 
   int32 nproc = 3;
   int32 memory = 4;
-  bytes prset = 5;
+  bytes preset = 5;
 }
 // File name to download, or optional filter text for list_files
 message DynaSolverFileRequest {
