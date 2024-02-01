@@ -1089,6 +1089,40 @@ message MatCrushableFoamReply {
 	int32 mid = 1;
 }
 
+//MAT_077_O
+message MatOgdenRubberRequest {
+	int32 mid = 1;
+	float ro = 2;
+	float pr = 3;
+	int32 n = 4;
+	int32 nv = 5;
+	float g = 6;
+	float sigf = 7;
+    //card 2
+    float tbhys = 8;
+    //card 3b.1
+    repeated float mu = 9;
+	//card 3b.2
+	repeated float alpha = 10;	
+}
+
+message MatOgdenRubberReply {
+	int32 mid = 1;
+}
+
+message MatShapeMemoryRequest {
+	int32 mid = 1;
+	float ro = 2;
+	float e = 3;
+	float pr = 4;
+	int32 lcss = 5;
+	repeated float params = 6;
+}
+
+message MatShapeMemoryReply {
+	int32 mid = 1;
+}
+
 message MatFabricRequest {
 	int32 mid = 1;
 	float ro = 2;
@@ -1298,12 +1332,70 @@ message GetNodesReply {
 	repeated double coords = 1;
 }
 
+message GetNodesCoordRequest {
+	repeated int64 nodeids = 1;
+}
+
+message GetNodesCoordReply {
+	repeated double coords = 1;
+}
+
+message GetShellElementsRequest {
+	
+}
+
+message GetShellElementsReply {
+	repeated int64 nodeids = 1;
+}
+
 message GetSolidElementsRequest {
 	
 }
 
 message GetSolidElementsReply {
 	repeated int64 nodeids = 1;
+}
+
+message GetInitVelocityRequest {
+	
+}
+
+message GetInitVelocityReply {
+	repeated float coord = 1;
+	repeated float vel = 2;
+}
+
+message GetBdySpcRequest {
+	
+}
+
+message GetBdySpcReply {
+	repeated float data = 1;
+}
+
+message GetPartRequest {
+	string type = 1;
+}
+
+message GetPartReply {
+	repeated int64 data = 1;
+}
+
+message GetPartInfoRequest {
+	repeated int64 ids = 1;
+}
+
+message GetPartInfoReply {
+	repeated string names = 1;
+	repeated int64 extids = 2;
+}
+
+message GetModelRequest {
+	
+}
+
+message GetModelReply {
+	int64 partnum = 1;
 }
 
 //ICFD
@@ -2153,6 +2245,8 @@ service kwC2S {
     rpc CreateMatPiecewiseLinearPlasticity(MatPiecewiseLinearPlasticityRequest) returns (MatPiecewiseLinearPlasticityReply) {}
 	rpc CreateMatModifiedPiecewiseLinearPlasticity(MatModifiedPiecewiseLinearPlasticityRequest) returns (MatModifiedPiecewiseLinearPlasticityReply) {}
 	rpc CreateMatCrushableFoam(MatCrushableFoamRequest) returns (MatCrushableFoamReply) {}
+	rpc CreateMatOgdenRubber(MatOgdenRubberRequest) returns (MatOgdenRubberReply) {}
+	rpc CreateMatShapeMemory(MatShapeMemoryRequest) returns (MatShapeMemoryReply) {}
 	rpc CreateMatFabric(MatFabricRequest) returns (MatFabricReply) {}
 	rpc CreateMatSpringNonlinearElastic(MatSpringNonlinearElasticRequest) returns (MatSpringNonlinearElasticReply) {}
 	rpc CreateMatDamperViscous(MatDamperViscousRequest) returns (MatDamperViscousReply) {}
@@ -2205,7 +2299,14 @@ service kwC2S {
 	rpc SetPartProperty(PartPropertyRequest) returns (PartPropertyReply) {}
 	//rpc CreatePart(PartRequest) returns (PartReply) {}
 	rpc GetNodes(GetNodesRequest) returns (GetNodesReply) {}
+	rpc GetNodesCoord(GetNodesCoordRequest) returns (GetNodesCoordReply) {}
 	rpc GetSolidElements(GetSolidElementsRequest) returns (GetSolidElementsReply) {}
+	rpc GetShellElements(GetShellElementsRequest) returns (GetShellElementsReply) {}
+	rpc GetInitVelocity(GetInitVelocityRequest) returns (GetInitVelocityReply) {}
+	rpc GetBdySpc(GetBdySpcRequest) returns (GetBdySpcReply) {}
+    rpc GetPart(GetPartRequest) returns (GetPartReply) {}
+	rpc GetPartInfo(GetPartInfoRequest) returns (GetPartInfoReply) {}
+	rpc GetModel(GetModelRequest) returns (GetModelReply) {}
 	rpc SaveFile(SaveFileRequest) returns(SaveFileReply) {}
 	rpc LoadFile(LoadFileRequest) returns(LoadFileReply) {}
 	rpc Download(DownloadRequest) returns (stream Chunk){}
