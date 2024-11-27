@@ -25,6 +25,7 @@ service DynaSolverComm {
     rpc log_level (LogLevel) returns (DynaSolverStatus) {}
     // start and run Syna locally
     rpc start_solver_locally (DynaSolverStartLocal) returns (DynaSolverStatus) {}
+    rpc set_working_directory (DynaSolverWorkDir) returns (DynaSolverStatus) {}
 }
 
 // The request packet, and also the reply packet, for most
@@ -80,4 +81,8 @@ message DynaSolverStatus {
 message DynaSolverFileList {
   repeated bytes name = 1;
   repeated int64 size = 2;
+}
+
+message DynaSolverWorkDir {
+  bytes dirname = 1; 
 }
