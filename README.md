@@ -1,5 +1,9 @@
 ### ansys-api-dyna gRPC Interface Package
 
+
+> [!WARNING] 
+> This package is currently deprecated and will not receive further updates.
+
 This Python package contains the auto-generated gRPC Python interface files for
 dyna.
 
